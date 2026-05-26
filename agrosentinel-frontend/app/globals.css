@@ -4,6 +4,8 @@
 
 :root {
   color-scheme: light;
+  --font-syne: 'Syne', 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
 body {

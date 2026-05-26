@@ -1,13 +1,17 @@
 'use client';
 
 import useSWR from 'swr';
+import dynamic from 'next/dynamic';
 import { DashboardShell } from '@/components/layout/DashboardShell';
 import { KpiCards } from '@/components/dashboard/KpiCards';
 import { AlertsFeed } from '@/components/dashboard/AlertsFeed';
-import { FarmsMap } from '@/components/dashboard/FarmsMap';
 import { getFarms, getAlerts } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { Alert } from '@/types';
+
+const FarmsMap = dynamic(() => import('@/components/dashboard/FarmsMap').then((m) => m.FarmsMap), {
+  ssr: false
+});
 
 export default function DashboardPage() {
   const { session } = useAuth();

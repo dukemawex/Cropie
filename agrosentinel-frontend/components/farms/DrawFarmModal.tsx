@@ -21,7 +21,7 @@ const DrawControls = ({ onPolygon }: { onPolygon: (p: GeoJSON.Polygon) => void }
     const drawn = new L.FeatureGroup();
     map.addLayer(drawn);
 
-    const drawControl = new L.Control.Draw({
+    const drawControl = new (L.Control as any).Draw({
       draw: {
         polygon: true,
         marker: false,
@@ -37,17 +37,18 @@ const DrawControls = ({ onPolygon }: { onPolygon: (p: GeoJSON.Polygon) => void }
 
     map.addControl(drawControl);
 
-    const created = (e: L.DrawEvents.Created) => {
+    const created = (e: any) => {
       drawn.clearLayers();
       drawn.addLayer(e.layer);
       const geo = e.layer.toGeoJSON().geometry as GeoJSON.Polygon;
       onPolygon(geo);
     };
 
-    map.on(L.Draw.Event.CREATED, created);
+    const drawCreatedEvent = 'draw:created';
+    map.on(drawCreatedEvent, created);
 
     return () => {
-      map.off(L.Draw.Event.CREATED, created);
+      map.off(drawCreatedEvent, created);
       map.removeControl(drawControl);
       map.removeLayer(drawn);
     };

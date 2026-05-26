@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import useSWR from 'swr';
 import { DashboardShell } from '@/components/layout/DashboardShell';
 import { Button } from '@/components/ui/button';
@@ -56,7 +57,13 @@ export default function FarmDetailPage() {
           <Card>
             <h3 className="mb-2 font-heading text-xl">Latest Satellite Composite</h3>
             {latest?.satellite_image_url ? (
-              <img src={latest.satellite_image_url} alt="Latest satellite composite" className="h-[300px] w-full border-2 border-charcoal object-cover" />
+              <Image
+                src={latest.satellite_image_url}
+                alt="Latest satellite composite"
+                width={1200}
+                height={700}
+                className="h-[300px] w-full border-2 border-charcoal object-cover"
+              />
             ) : (
               <p>No analysis image available.</p>
             )}
